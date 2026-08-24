@@ -14,8 +14,34 @@ for (const route of routes) {
   }
   if (!fs.existsSync(htmlPath)) continue;
   const html = fs.readFileSync(htmlPath, 'utf8');
-  const required = ['Diagnóstico da Mulher que Dá Conta de Tudo', 'Salete', 'Lisandra', 'R$29,90', 'id="oferta"', 'id="faq"'];
+  const required = [
+    'Diagnóstico da Mulher que Dá Conta de Tudo',
+    'Lisandra Klein',
+    'Salete Gervasoni',
+    'Professoras e Terapeutas Sistêmicas Integrativas',
+    'Você se <em>reconhece?</em>',
+    'O que pode estar por trás desse',
+    'Práticas e vivências sistêmicas',
+    'R$ 29,90',
+    'PRÓXIMO LOTE',
+    'Ficou alguma <em>dúvida?</em>',
+    'id="oferta"',
+    'id="faq"',
+  ];
   for (const text of required) if (!html.includes(text)) failures.push(`${route}: conteúdo obrigatório ausente: ${text}`);
+  const forbidden = [
+    'Antes e depois',
+    'Talvez não seja se',
+    'Sem garantia adicional informada',
+    'A transformação profunda continua na mentoria',
+    'Salete Verenice Soares Gervasoni',
+    'Padrão › Clareza › Reconexão › Voltar para si',
+  ];
+  for (const text of forbidden) if (html.includes(text)) failures.push(`${route}: conteúdo removido ainda presente: ${text}`);
+  const primaryCtas = (html.match(/QUERO GARANTIR MINHA VAGA/g) || []).length;
+  if (primaryCtas < 4) failures.push(`${route}: quantidade insuficiente de CTAs principais`);
+  const purchaseConditions = (html.match(/A compra segue as condições da plataforma de pagamento utilizada\./g) || []).length;
+  if (purchaseConditions !== 1) failures.push(`${route}: condições da compra devem aparecer uma única vez`);
   if (/\{\{|\{%|settings\./.test(html)) failures.push(`${route}: placeholder do Elementor não resolvido`);
   if (!html.includes('<main') || !html.includes('</main>')) failures.push(`${route}: estrutura principal inválida`);
 }
@@ -31,4 +57,3 @@ if (failures.length) {
 }
 
 console.log('Validação concluída: três páginas e assets íntegros.');
-

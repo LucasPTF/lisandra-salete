@@ -4,10 +4,9 @@
   "private": true,
   "description": "Três ângulos da landing page de Lisandra Klein e Salete Gervasoni convertidos do Elementor para HTML estático.",
   "scripts": {
-    "convert": "node tools/convert-elementor.cjs",
+    "convert": "node tools/generate-pages.cjs",
     "validate": "node tools/validate.cjs",
     "build": "node tools/build.cjs",
     "start": "npx --yes serve . -l 4173"
   }
 }
-

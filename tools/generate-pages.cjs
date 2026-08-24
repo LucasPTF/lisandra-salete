@@ -1,4 +1,228 @@
+const fs = require('fs');
+const path = require('path');
 
+const root = path.resolve(__dirname, '..');
+const checkoutUrl = '#oferta';
+
+const angles = {
+  a1: {
+    title: 'Você dá conta de tudo. Mas quem está cuidando de você?',
+    headline: 'Você dá conta de tudo.<br><em>Mas quem está cuidando de você?</em>',
+  },
+  a2: {
+    title: 'Dar conta de tudo nem sempre é força',
+    headline: 'Dar conta de tudo nem sempre é força.<br><em>Às vezes, é autoabandono.</em>',
+  },
+  a3: {
+    title: 'Em 4 horas, entenda por que você carrega tanto',
+    headline: 'Em 4 horas, você vai entender <em>por que carrega tanto</em>',
+  },
+};
+
+const faq = [
+  ['Vou precisar me expor?', 'Não. Você poderá participar das práticas e vivências respeitando seus próprios limites.'],
+  ['Isso é terapia?', 'Não. É um workshop de autoconhecimento com práticas e vivências guiadas.'],
+  ['Em 4 horas dá para mudar alguma coisa?', 'É possível ampliar a percepção, compreender padrões e vivenciar novos movimentos. Cada pessoa terá sua própria experiência.'],
+  ['E se eu já tentei outras coisas?', 'A proposta é oferecer um olhar diferente, incluindo uma perspectiva sistêmica sobre padrões que podem aparecer na sua vida.'],
+  ['Vou conseguir acompanhar?', 'Sim. As práticas e vivências serão conduzidas passo a passo.'],
+];
+
+const cta = (label = 'QUERO GARANTIR MINHA VAGA', className = '') =>
+  `<a class="button ${className}" href="${checkoutUrl}"><span>${label}</span><b aria-hidden="true">→</b></a>`;
+
+function renderPage(route, angle) {
+  return `<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#160b12">
+  <title>${angle.title} — Diagnóstico da Mulher que Dá Conta de Tudo</title>
+  <meta name="description" content="Workshop ao vivo de 4 horas com diagnóstico guiado, práticas e vivências sistêmicas conduzido por Lisandra Klein e Salete Gervasoni.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Diagnóstico da Mulher que Dá Conta de Tudo">
+  <meta property="og:description" content="Online, ao vivo e com 4 horas de práticas e vivências guiadas.">
+  <meta property="og:image" content="/assets/og-lisandra-salete.png">
+  <link rel="preload" as="image" href="../assets/lisandra-salete-hero.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-angle="${route}">
+  <header class="topbar">
+    <a class="brand" href="#topo" aria-label="Ir ao início">
+      <span class="brand-mark">LS</span>
+      <span><strong>DIAGNÓSTICO</strong><small>DA MULHER QUE DÁ CONTA DE TUDO</small></span>
+    </a>
+    <a class="top-cta" href="${checkoutUrl}">GARANTIR VAGA <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main>
+    <section class="hero" id="topo">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><i></i> WORKSHOP ONLINE E AO VIVO</p>
+        <h1>${angle.headline}</h1>
+        <p class="hero-lead">Um workshop ao vivo para mulheres que estão cansadas de sustentar tudo sozinhas e querem compreender o que pode estar por trás dessa necessidade de dar conta de tudo.</p>
+        <div class="hero-facts" aria-label="Informações do workshop">
+          <span>4 horas ao vivo</span><i></i><span>Diagnóstico guiado</span><i></i><span>Vivências sistêmicas</span>
+        </div>
+        <div class="hero-action">
+          ${cta()}
+          <p><small>1º LOTE</small><strong>R$ 29,90</strong></p>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="../assets/lisandra-salete-hero.jpg" alt="Lisandra Klein e Salete Gervasoni" width="1365" height="2048">
+        <figcaption>Lisandra Klein <span>&amp;</span> Salete Gervasoni</figcaption>
+      </figure>
+    </section>
+
+    <section class="recognition section" id="reconhece">
+      <div class="recognition-photo">
+        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni juntas" loading="lazy" width="2048" height="1365">
+        <div class="photo-tag">UM OLHAR PARA<br>O QUE VOCÊ CARREGA</div>
+      </div>
+      <div class="recognition-copy">
+        <p class="section-label"><span>01</span> IDENTIFICAÇÃO</p>
+        <h2>Você se <em>reconhece?</em></h2>
+        <ul class="check-list">
+          <li>Diz “sim” quando queria dizer “não”.</li>
+          <li>Sente que se você não fizer, ninguém faz.</li>
+          <li>Resolve os problemas de todos e deixa os seus para depois.</li>
+          <li>Tem dificuldade de pedir ajuda e delegar.</li>
+          <li>Sente culpa quando para ou descansa.</li>
+          <li>Está cansada, sobrecarregada e, às vezes, sente um vazio que nem sabe explicar.</li>
+        </ul>
+        <div class="recognition-close">
+          <p>Talvez não seja apenas excesso de tarefas.</p>
+          <strong>Pode existir algo por trás dessa necessidade de dar conta de tudo.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="behind section" id="descobrir">
+      <div class="section-heading">
+        <div>
+          <p class="section-label light"><span>02</span> UM NOVO OLHAR</p>
+          <h2>O que pode estar por trás desse <em>“eu dou conta”?</em></h2>
+        </div>
+        <p>Compreender o padrão é o começo de um movimento mais consciente — sem exigir que você mude tudo de uma vez.</p>
+      </div>
+      <div class="discovery-grid">
+        <article><span>01</span><h3>Por que você sente que precisa resolver tudo</h3><p>Entenda o que pode ter feito você aprender que precisava ser forte e dar conta.</p></article>
+        <article><span>02</span><h3>Por que pedir ajuda parece tão difícil</h3><p>Perceba por que você consegue cuidar de todos, mas tem dificuldade de permitir que cuidem de você.</p></article>
+        <article><span>03</span><h3>Por que dizer “não” traz culpa</h3><p>Compreenda o que pode estar por trás da dificuldade de colocar limites e considerar também as suas necessidades.</p></article>
+        <article><span>04</span><h3>Vivências sistêmicas</h3><p>Experimente um olhar além do racional para perceber esses padrões e abrir espaço para novos movimentos.</p></article>
+      </div>
+      <div class="center-cta">${cta('QUERO PARTICIPAR DO WORKSHOP')}</div>
+    </section>
+
+    <section class="for-you section">
+      <div class="for-you-card">
+        <p class="section-label"><span>03</span> PARA QUEM É</p>
+        <h2>Este workshop é para você que…</h2>
+        <p class="for-you-lead">Se reconheceu nessa mulher que tenta dar conta de tudo, está cansada de repetir esse padrão e quer compreender o que pode existir por trás dele.</p>
+        <div class="no-exposure"><span aria-hidden="true">✓</span><div><strong>Sem exposição.</strong><p>Você participa das práticas e vivências no seu ritmo e respeitando seus limites.</p></div></div>
+      </div>
+    </section>
+
+    <section class="offer section" id="oferta">
+      <div class="offer-copy">
+        <p class="section-label light"><span>04</span> 1º LOTE ABERTO</p>
+        <h2>Talvez você não precise aprender a <em>dar conta de mais.</em></h2>
+        <p class="offer-message">Talvez precise compreender por que sente que precisa dar conta de tudo.</p>
+        <h3>DIAGNÓSTICO DA MULHER QUE DÁ CONTA DE TUDO</h3>
+        <p class="you-get">VOCÊ TERÁ:</p>
+        <ul class="offer-list">
+          <li>Workshop ao vivo — 4 horas</li>
+          <li>Diagnóstico guiado</li>
+          <li>Práticas e vivências sistêmicas</li>
+          <li>Grupo de WhatsApp</li>
+          <li>Replay por 3 dias</li>
+          <li>Materiais exclusivos</li>
+        </ul>
+      </div>
+      <aside class="price-card">
+        <p class="price-label">1º LOTE <span>VOCÊ ESTÁ AQUI</span></p>
+        <div class="price"><small>R$</small><strong>29</strong><sup>,90</sup></div>
+        <div class="price-jump"><span>AGORA <b>R$ 29,90</b></span><i>→</i><span>PRÓXIMO LOTE <b>R$ 97</b></span></div>
+        <p class="event-line">Online <i></i> Ao vivo <i></i> 4 horas <i></i> Replay por 3 dias</p>
+        ${cta('QUERO GARANTIR MINHA VAGA', 'button-full')}
+        <p class="third-lot">3º lote: R$ 197</p>
+        <small class="purchase-note">A compra segue as condições da plataforma de pagamento utilizada.</small>
+      </aside>
+    </section>
+
+    <section class="hosts section">
+      <div class="hosts-image">
+        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni, professoras e terapeutas sistêmicas integrativas" loading="lazy" width="2048" height="1365">
+        <div class="hosts-badge"><strong>2</strong><span>PROFISSIONAIS<br>COM VOCÊ</span></div>
+      </div>
+      <div class="hosts-copy">
+        <p class="section-label"><span>05</span> QUEM CONDUZ</p>
+        <h2>Quem estará com você <em>nessa experiência</em></h2>
+        <h3>Lisandra Klein e Salete Gervasoni</h3>
+        <p class="hosts-role">Professoras e Terapeutas Sistêmicas Integrativas</p>
+        <p>Duas profissionais que unem a experiência da educação ao olhar terapêutico e sistêmico para compreender padrões, relações e movimentos que atravessam a vida das mulheres.</p>
+        <p>Além da formação e experiência profissional, Lisandra e Salete também conhecem, em suas próprias histórias, o que significa assumir responsabilidades, atravessar desafios e perceber a importância de olhar para si.</p>
+        <p>Hoje, integram visão sistêmica, constelação, hipnose, PNL, neurociência e práticas integrativas em uma condução acolhedora, respeitosa e voltada à ampliação da consciência.</p>
+        <p>No workshop <strong>Diagnóstico da Mulher que Dá Conta de Tudo</strong>, conduzirão práticas e vivências sistêmicas para ajudar você a perceber o que pode estar por trás da necessidade de sustentar, resolver e dar conta de tudo.</p>
+      </div>
+    </section>
+
+    <section class="receive section">
+      <div class="section-heading receive-heading">
+        <div><p class="section-label light"><span>06</span> ENTREGAS</p><h2>Tudo o que você recebe <em>ao participar</em></h2></div>
+      </div>
+      <div class="receive-grid">
+        <article><span>01</span><h3>Workshop ao vivo de 4 horas</h3><p>Um encontro para olhar para os padrões que sustentam o “dar conta de tudo”.</p></article>
+        <article><span>02</span><h3>Diagnóstico guiado</h3><p>Para identificar onde esse padrão aparece na sua vida.</p></article>
+        <article><span>03</span><h3>Práticas e vivências sistêmicas</h3><p>Para ampliar a percepção sobre padrões, relações e movimentos que podem estar por trás da sobrecarga.</p></article>
+        <article><span>04</span><h3>Grupo de WhatsApp</h3><p>Orientações, lembretes e suporte durante o workshop.</p></article>
+        <article><span>05</span><h3>Replay por 3 dias</h3><p>Para rever o conteúdo com calma.</p></article>
+        <article class="materials"><span>+</span><h3>Materiais exclusivos</h3><ul><li>Mapa da Mulher que Dá Conta de Tudo</li><li>Áudio Guiado — De Volta Para Si</li><li>Checklist dos Autossabotadores Emocionais</li></ul></article>
+      </div>
+      <div class="center-cta">${cta()}</div>
+    </section>
+
+    <section class="faq section" id="faq">
+      <div class="faq-title">
+        <p class="section-label"><span>07</span> FAQ</p>
+        <h2>Ficou alguma <em>dúvida?</em></h2>
+        <p>Reunimos aqui as respostas mais importantes antes de você garantir sua vaga.</p>
+      </div>
+      <div class="faq-list">
+        ${faq.map(([question, answer], index) => `<details${index === 0 ? ' open' : ''}><summary><span>${question}</span><i aria-hidden="true">+</i></summary><p>${answer}</p></details>`).join('')}
+      </div>
+    </section>
+
+    <section class="final section">
+      <div class="final-grid" aria-hidden="true"></div>
+      <div class="final-content">
+        <p class="section-label light"><span>08</span> SUA ESCOLHA</p>
+        <h2>Você não precisa continuar sendo a última da sua própria lista.</h2>
+        <p>Talvez você não precise fazer mais.<br><strong>Talvez precise compreender por que sente que precisa dar conta de tudo.</strong></p>
+        <h3>DIAGNÓSTICO DA MULHER QUE DÁ CONTA DE TUDO</h3>
+        <div class="final-meta"><span>Online</span><i></i><span>Ao vivo</span><i></i><span>4 horas</span></div>
+        <div class="final-offer"><span>1º LOTE</span><strong>R$ 29,90</strong></div>
+        ${cta()}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>DIAGNÓSTICO DA MULHER QUE DÁ CONTA DE TUDO</strong><p>Workshop de autoconhecimento com práticas e vivências sistêmicas guiadas.</p></div>
+    <p>Lisandra Klein e Salete Gervasoni<br>Professoras e Terapeutas Sistêmicas Integrativas</p>
+    <small>© 2026 · Lisandra Klein e Salete Gervasoni</small>
+  </footer>
+
+  <div class="mobile-buy"><span><small>1º LOTE</small><strong>R$ 29,90</strong></span><a href="${checkoutUrl}">QUERO MINHA VAGA <b aria-hidden="true">→</b></a></div>
+  <script src="script.js" defer></script>
+</body>
+</html>`;
+}
+
+const css = `
 :root{--ink:#f6eee8;--muted:#c9b8b2;--soft:#a1988c;--dark:#160b12;--dark2:#1a1014;--wine:#24111b;--rose:#a63a62;--rose2:#7b2549;--gold:#d9ae5a;--gold2:#8a5e2c;--line:rgba(244,236,230,.14);--max:1180px}
 *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--dark)}body{margin:0;background:var(--dark);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}main{overflow:clip}a{color:inherit;text-decoration:none}img{display:block;width:100%;height:100%;object-fit:cover}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Manrope,Inter,ui-sans-serif,system-ui,sans-serif}.section{padding:112px max(24px,calc((100vw - var(--max))/2))}.section-label{display:flex;align-items:center;gap:12px;margin-bottom:30px;color:var(--gold2);font-size:.63rem;font-weight:900;letter-spacing:.17em}.section-label span{width:35px;height:35px;display:grid;place-items:center;border:1px solid rgba(138,94,44,.38);border-radius:50%;color:var(--rose2)}.section-label.light{color:#a99a94}.section-label.light span{color:var(--gold);border-color:rgba(217,174,90,.32)}h2{margin-bottom:0;font-size:clamp(2.8rem,5.2vw,5.7rem);font-weight:760;line-height:.98;letter-spacing:-.062em;text-wrap:balance}h2 em{color:var(--gold);font-family:Georgia,serif;font-weight:400}.button{width:fit-content;min-height:62px;padding:10px 13px 10px 25px;display:inline-flex;align-items:center;justify-content:space-between;gap:28px;background:linear-gradient(135deg,var(--rose2),var(--rose) 62%,var(--gold2) 150%);border:1px solid rgba(255,255,255,.16);border-radius:999px;box-shadow:0 18px 44px -18px rgba(166,58,98,.8);font-size:.72rem;font-weight:950;letter-spacing:.05em;transition:.2s}.button b{width:38px;height:38px;display:grid;place-items:center;color:var(--dark);background:var(--gold);border-radius:50%;font-size:1rem}.button:hover{transform:translateY(-3px);box-shadow:0 24px 55px -18px rgba(166,58,98,.95)}.button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.button-full{width:100%}.center-cta{margin-top:52px;display:flex;justify-content:center}
 .topbar{position:absolute;z-index:30;top:0;left:0;right:0;min-height:82px;padding:14px max(24px,calc((100vw - var(--max))/2));display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(244,236,230,.12);background:linear-gradient(to bottom,rgba(15,6,12,.84),transparent)}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:43px;height:43px;display:grid;place-items:center;color:var(--gold);border:1px solid rgba(217,174,90,.45);border-radius:50%;font:900 .65rem ui-monospace,monospace}.brand>span:last-child{display:grid}.brand strong{font-size:.72rem;letter-spacing:.15em}.brand small{margin-top:3px;color:#9f918d;font-size:.42rem;font-weight:800;letter-spacing:.1em}.top-cta{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:.62rem;font-weight:900;letter-spacing:.08em}.top-cta span{width:29px;height:29px;display:grid;place-items:center;border:1px solid rgba(217,174,90,.45);border-radius:50%}
@@ -15,3 +239,25 @@
 @media(max-width:760px){.section{padding:78px 18px}.topbar{min-height:68px;padding:10px 15px}.brand strong{font-size:.64rem}.brand small{font-size:.38rem}.brand-mark{width:38px;height:38px}.top-cta{display:none}.hero{min-height:auto;padding:100px 18px 55px;display:flex;flex-direction:column;gap:40px}.hero-grid{mask-image:linear-gradient(#000,transparent 75%)}.hero-copy{width:100%}.hero h1{font-size:clamp(3.15rem,13.8vw,4.35rem);line-height:.92}.hero-lead{font-size:.92rem;line-height:1.66}.hero-facts{display:grid;grid-template-columns:1fr}.hero-facts i{display:none}.hero-facts span{padding:9px 0;border-bottom:1px solid var(--line)}.hero-action{align-items:stretch;flex-direction:column;gap:17px}.hero-action .button{width:100%}.hero-action>p{padding:13px 0 0;border-left:0;border-top:1px solid var(--line)}.hero-photo{width:calc(100% + 36px);height:570px;margin-inline:-18px;align-self:auto}.hero-photo:before{background:linear-gradient(0deg,#160b12 0%,transparent 28%)}.hero-photo img{object-position:center 25%}.recognition,.hosts,.offer,.faq,.section-heading{grid-template-columns:1fr;gap:42px}.recognition-photo{height:520px;margin-inline:-18px}.recognition-copy h2{font-size:3.3rem}.check-list{margin-top:32px}.check-list li{font-size:.82rem;align-items:flex-start}.recognition-close strong{font-size:1.15rem}.section-heading{gap:24px}.behind h2{font-size:3.25rem}.discovery-grid{margin-top:42px;grid-template-columns:1fr}.discovery-grid article{min-height:260px;border-right:0!important;border-bottom:1px solid var(--line)!important}.discovery-grid article:last-child{border-bottom:0!important}.discovery-grid h3{margin-top:55px}.center-cta{margin-top:38px}.center-cta .button{width:100%}.for-you-card{text-align:left}.for-you-card .section-label{justify-content:flex-start}.for-you h2{font-size:3rem}.for-you-lead{font-size:.9rem}.no-exposure{padding:22px 20px}.offer h2{font-size:3.25rem}.offer-list{grid-template-columns:1fr}.price-card{padding:28px 20px}.price strong{font-size:6.8rem}.price-jump{gap:8px}.hosts-copy{grid-row:1}.hosts-image{grid-row:2;height:570px;margin-inline:-18px}.hosts h2{font-size:3.1rem}.hosts-copy>p{font-size:.82rem}.receive-grid{margin-top:42px;grid-template-columns:1fr}.receive-grid article{min-height:235px;border-right:0!important;border-bottom:1px solid var(--line)!important}.receive-grid article:last-child{border-bottom:0!important}.receive-grid h3{margin-top:45px}.faq{gap:30px}.faq-title{position:static}.faq summary{font-size:.83rem}.final{min-height:720px}.final h2{font-size:3.25rem}.final .button{width:100%}footer{padding:34px 18px 105px;grid-template-columns:1fr;gap:18px}footer>p,footer>small{text-align:left}.mobile-buy{position:fixed;z-index:80;left:0;right:0;bottom:0;min-height:72px;padding:9px 11px;display:flex;align-items:center;justify-content:space-between;color:white;background:rgba(14,7,11,.97);border-top:1px solid var(--line);backdrop-filter:blur(14px)}.mobile-buy>span{display:grid}.mobile-buy small{color:#887b77;font-size:.45rem}.mobile-buy strong{color:var(--gold)}.mobile-buy>a{padding:15px 17px;display:flex;align-items:center;gap:11px;color:white;background:linear-gradient(135deg,var(--rose2),var(--rose));border-radius:999px;font-size:.55rem;font-weight:900}.mobile-buy b{color:var(--gold)}}
 @media(max-width:390px){.hero h1{font-size:2.95rem}.hero-photo{height:520px}.price strong{font-size:5.9rem}.button{font-size:.64rem;padding-left:19px}.mobile-buy>a{padding-inline:13px;font-size:.5rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+`;
+
+const js = `
+document.querySelectorAll('.faq details').forEach((item) => {
+  item.addEventListener('toggle', () => {
+    if (!item.open) return;
+    document.querySelectorAll('.faq details[open]').forEach((other) => {
+      if (other !== item) other.open = false;
+    });
+  });
+});
+`;
+
+for (const [route, angle] of Object.entries(angles)) {
+  const output = path.join(root, route);
+  fs.mkdirSync(output, { recursive: true });
+  fs.writeFileSync(path.join(output, 'index.html'), renderPage(route, angle));
+  fs.writeFileSync(path.join(output, 'styles.css'), css);
+  fs.writeFileSync(path.join(output, 'script.js'), js);
+}
+
+console.log('Três ângulos atualizados com a nova estrutura da cliente.');
