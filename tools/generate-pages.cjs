@@ -72,14 +72,14 @@ function renderPage(route, angle) {
         </div>
       </div>
       <figure class="hero-photo">
-        <img src="../assets/lisandra-salete-hero.jpg" alt="Lisandra Klein e Salete Gervasoni" width="1365" height="2048">
+        <img src="../assets/lisandra-salete-hero.jpg" alt="Lisandra Klein e Salete Gervasoni" width="816" height="800">
         <figcaption>Lisandra Klein <span>&amp;</span> Salete Gervasoni</figcaption>
       </figure>
     </section>
 
     <section class="recognition section" id="reconhece">
       <div class="recognition-photo">
-        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni juntas" loading="lazy" width="2048" height="1365">
+        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni juntas" loading="lazy" width="1460" height="974">
         <div class="photo-tag">UM OLHAR PARA<br>O QUE VOCÊ CARREGA</div>
       </div>
       <div class="recognition-copy">
@@ -155,7 +155,7 @@ function renderPage(route, angle) {
 
     <section class="hosts section">
       <div class="hosts-image">
-        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni, professoras e terapeutas sistêmicas integrativas" loading="lazy" width="2048" height="1365">
+        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni, professoras e terapeutas sistêmicas integrativas" loading="lazy" width="1460" height="974">
         <div class="hosts-badge"><strong>2</strong><span>PROFISSIONAIS<br>COM VOCÊ</span></div>
       </div>
       <div class="hosts-copy">
@@ -241,6 +241,17 @@ const css = `
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 `;
 
+const framingCss = `
+/* Enquadramento das fotografias fornecidas pela cliente */
+.hero{grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr)}
+.hero-photo img{object-position:50% 42%;filter:saturate(.96)}
+.recognition-photo,.hosts-image{height:auto;aspect-ratio:1/1;background:#211018}
+.recognition-photo img,.hosts-image img{object-position:50% 46%}
+@media(max-width:1050px) and (min-width:761px){.hero{grid-template-columns:1fr .82fr}}
+@media(max-width:760px){.hero-photo{height:500px}.hero-photo img{object-position:50% 42%}.recognition-photo,.hosts-image{height:auto;aspect-ratio:1/1}}
+@media(max-width:390px){.hero-photo{height:470px}}
+`;
+
 const js = `
 document.querySelectorAll('.faq details').forEach((item) => {
   item.addEventListener('toggle', () => {
@@ -256,7 +267,7 @@ for (const [route, angle] of Object.entries(angles)) {
   const output = path.join(root, route);
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, 'index.html'), renderPage(route, angle));
-  fs.writeFileSync(path.join(output, 'styles.css'), css);
+  fs.writeFileSync(path.join(output, 'styles.css'), css + framingCss);
   fs.writeFileSync(path.join(output, 'script.js'), js);
 }
 
