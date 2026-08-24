@@ -45,7 +45,7 @@ function renderPage(route, angle) {
   <meta property="og:description" content="Online, ao vivo e com 4 horas de práticas e vivências guiadas.">
   <meta property="og:image" content="/assets/og-lisandra-salete.png">
   <link rel="preload" as="image" href="../assets/lisandra-salete-hero.jpg">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/${route}/styles.css">
 </head>
 <body data-angle="${route}">
   <header class="topbar">
@@ -217,7 +217,7 @@ function renderPage(route, angle) {
   </footer>
 
   <div class="mobile-buy"><span><small>1º LOTE</small><strong>R$ 29,90</strong></span><a href="${checkoutUrl}">QUERO MINHA VAGA <b aria-hidden="true">→</b></a></div>
-  <script src="script.js" defer></script>
+  <script src="/${route}/script.js" defer></script>
 </body>
 </html>`;
 }

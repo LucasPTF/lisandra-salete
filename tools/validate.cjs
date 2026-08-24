@@ -44,6 +44,8 @@ for (const route of routes) {
   if (purchaseConditions !== 1) failures.push(`${route}: condições da compra devem aparecer uma única vez`);
   if (/\{\{|\{%|settings\./.test(html)) failures.push(`${route}: placeholder do Elementor não resolvido`);
   if (!html.includes('<main') || !html.includes('</main>')) failures.push(`${route}: estrutura principal inválida`);
+  if (!html.includes(`href="/${route}/styles.css"`)) failures.push(`${route}: caminho absoluto do CSS ausente`);
+  if (!html.includes(`src="/${route}/script.js"`)) failures.push(`${route}: caminho absoluto do JavaScript ausente`);
 }
 
 for (const asset of ['lisandra-salete-hero.jpg', 'lisandra-salete-mentoras.jpg']) {
