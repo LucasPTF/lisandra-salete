@@ -79,7 +79,7 @@ function renderPage(route, angle) {
 
     <section class="recognition section" id="reconhece">
       <div class="recognition-photo">
-        <img src="../assets/lisandra-salete-mentoras.jpg" alt="Lisandra Klein e Salete Gervasoni juntas" loading="lazy" width="2048" height="1365">
+        <img src="../assets/lisandra-salete-reconhece.jpg" alt="Lisandra Klein e Salete Gervasoni juntas" loading="lazy" width="816" height="800">
         <div class="photo-tag">UM OLHAR PARA<br>O QUE VOCÊ CARREGA</div>
       </div>
       <div class="recognition-copy">
@@ -241,6 +241,13 @@ const css = `
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 `;
 
+const recognitionFramingCss = `
+/* Mantém a nova foto completa no bloco de identificação */
+.recognition-photo{height:auto;aspect-ratio:1/1}
+.recognition-photo img{object-position:50% 50%}
+@media(max-width:760px){.recognition-photo{height:auto;aspect-ratio:1/1}}
+`;
+
 const js = `
 document.querySelectorAll('.faq details').forEach((item) => {
   item.addEventListener('toggle', () => {
@@ -256,7 +263,7 @@ for (const [route, angle] of Object.entries(angles)) {
   const output = path.join(root, route);
   fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, 'index.html'), renderPage(route, angle));
-  fs.writeFileSync(path.join(output, 'styles.css'), css);
+  fs.writeFileSync(path.join(output, 'styles.css'), css + recognitionFramingCss);
   fs.writeFileSync(path.join(output, 'script.js'), js);
 }
 

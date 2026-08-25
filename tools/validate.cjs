@@ -48,7 +48,7 @@ for (const route of routes) {
   if (!html.includes(`src="/${route}/script.js"`)) failures.push(`${route}: caminho absoluto do JavaScript ausente`);
 }
 
-for (const asset of ['lisandra-salete-hero.jpg', 'lisandra-salete-mentoras.jpg']) {
+for (const asset of ['lisandra-salete-hero.jpg', 'lisandra-salete-mentoras.jpg', 'lisandra-salete-reconhece.jpg']) {
   const file = path.join(root, 'assets', asset);
   if (!fs.existsSync(file) || fs.statSync(file).size < 10000) failures.push(`asset ausente ou inválido: ${asset}`);
 }
