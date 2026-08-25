@@ -20,3 +20,12 @@
 .recognition-photo{height:auto;aspect-ratio:1/1}
 .recognition-photo img{object-position:50% 50%}
 @media(max-width:760px){.recognition-photo{height:auto;aspect-ratio:1/1}}
+@media(max-width:760px){
+  .hero-lead{font-size:1.08rem;line-height:1.72;margin-bottom:30px}
+  .hero-facts{font-size:.8rem;line-height:1.5}
+  .hero-facts span{padding:13px 0}
+}
+@media(max-width:390px){
+  .hero-lead{font-size:1.02rem}
+  .hero-facts{font-size:.76rem}
+}
