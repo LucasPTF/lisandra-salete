@@ -251,19 +251,34 @@ const recognitionFramingCss = `
 .recognition-photo img{object-position:50% 50%}
 .hero h1{max-width:670px;margin-bottom:8px;font-size:clamp(2.85rem,4.6vw,5rem);line-height:.96;letter-spacing:-.06em}
 .hero-subheadline{max-width:710px;margin:0 0 24px;color:var(--gold);font-family:Georgia,serif;font-size:clamp(2rem,3.4vw,3.7rem);font-weight:400;font-style:italic;line-height:1.03;letter-spacing:-.045em;text-wrap:balance}
+.eyebrow{font-size:.72rem}
+.hero-lead{font-size:1.12rem}
+.hero-facts{font-size:.76rem}
+.hero-action small{font-size:.58rem}
+.button{font-size:.78rem}
 @media(max-width:760px){.recognition-photo{height:auto;aspect-ratio:1/1}}
 @media(max-width:760px){
+  .brand strong{font-size:.7rem}
+  .brand small{font-size:.43rem}
+  .eyebrow{font-size:.69rem;letter-spacing:.13em}
   .hero h1{font-size:clamp(2.45rem,11.5vw,3.15rem);line-height:.96;margin-bottom:5px}
   .hero-subheadline{font-size:clamp(1.95rem,9.5vw,2.65rem);line-height:1.04;margin-bottom:22px}
-  .hero-lead{font-size:1.08rem;line-height:1.72;margin-bottom:30px}
-  .hero-facts{font-size:.8rem;line-height:1.5}
+  .hero-lead{font-size:1.1rem;line-height:1.72;margin-bottom:30px}
+  .hero-facts{font-size:.84rem;line-height:1.5}
   .hero-facts span{padding:13px 0}
+  .hero-action small{font-size:.58rem}
+  .hero-action .button{font-size:.76rem}
+  .mobile-buy small{font-size:.52rem}
+  .mobile-buy strong{font-size:1.08rem}
+  .mobile-buy>a{font-size:.6rem}
 }
 @media(max-width:390px){
   .hero h1{font-size:2.35rem}
-  .hero-subheadline{font-size:1.9rem}
-  .hero-lead{font-size:1.02rem}
-  .hero-facts{font-size:.76rem}
+  .hero-subheadline{font-size:2rem}
+  .hero-lead{font-size:1.06rem}
+  .hero-facts{font-size:.81rem}
+  .button{font-size:.72rem}
+  .mobile-buy>a{font-size:.57rem}
 }
 `;
 
