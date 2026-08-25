@@ -40,6 +40,9 @@ for (const route of routes) {
   for (const text of forbidden) if (html.includes(text)) failures.push(`${route}: conteúdo removido ainda presente: ${text}`);
   const primaryCtas = (html.match(/QUERO GARANTIR MINHA VAGA/g) || []).length;
   if (primaryCtas < 4) failures.push(`${route}: quantidade insuficiente de CTAs principais`);
+  const primaryHeadings = (html.match(/<h1>/g) || []).length;
+  if (primaryHeadings !== 1) failures.push(`${route}: a hero deve ter exatamente um H1`);
+  if (!html.includes('<h2 class="hero-subheadline">')) failures.push(`${route}: complemento H2 da hero ausente`);
   const purchaseConditions = (html.match(/A compra segue as condições da plataforma de pagamento utilizada\./g) || []).length;
   if (purchaseConditions !== 1) failures.push(`${route}: condições da compra devem aparecer uma única vez`);
   if (/\{\{|\{%|settings\./.test(html)) failures.push(`${route}: placeholder do Elementor não resolvido`);

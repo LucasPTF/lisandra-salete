@@ -7,15 +7,18 @@ const checkoutUrl = '#oferta';
 const angles = {
   a1: {
     title: 'Você dá conta de tudo. Mas quem está cuidando de você?',
-    headline: 'Você dá conta de tudo.<br><em>Mas quem está cuidando de você?</em>',
+    headline: 'Você dá conta de tudo.',
+    subheadline: 'Mas quem está cuidando de você?',
   },
   a2: {
     title: 'Dar conta de tudo nem sempre é força',
-    headline: 'Dar conta de tudo nem sempre é força.<br><em>Às vezes, é autoabandono.</em>',
+    headline: 'Dar conta de tudo nem sempre é força.',
+    subheadline: 'Às vezes, é autoabandono.',
   },
   a3: {
     title: 'Em 4 horas, entenda por que você carrega tanto',
-    headline: 'Em 4 horas, você vai entender <em>por que carrega tanto</em>',
+    headline: 'Em 4 horas, você vai entender',
+    subheadline: 'por que carrega tanto',
   },
 };
 
@@ -62,6 +65,7 @@ function renderPage(route, angle) {
       <div class="hero-copy">
         <p class="eyebrow"><i></i> WORKSHOP ONLINE E AO VIVO</p>
         <h1>${angle.headline}</h1>
+        <h2 class="hero-subheadline">${angle.subheadline}</h2>
         <p class="hero-lead">Um workshop ao vivo para mulheres que estão cansadas de sustentar tudo sozinhas e querem compreender o que pode estar por trás dessa necessidade de dar conta de tudo.</p>
         <div class="hero-facts" aria-label="Informações do workshop">
           <span>4 horas ao vivo</span><i></i><span>Diagnóstico guiado</span><i></i><span>Vivências sistêmicas</span>
@@ -245,13 +249,19 @@ const recognitionFramingCss = `
 /* Mantém a nova foto completa no bloco de identificação */
 .recognition-photo{height:auto;aspect-ratio:1/1}
 .recognition-photo img{object-position:50% 50%}
+.hero h1{max-width:670px;margin-bottom:8px;font-size:clamp(2.85rem,4.6vw,5rem);line-height:.96;letter-spacing:-.06em}
+.hero-subheadline{max-width:710px;margin:0 0 24px;color:var(--gold);font-family:Georgia,serif;font-size:clamp(2rem,3.4vw,3.7rem);font-weight:400;font-style:italic;line-height:1.03;letter-spacing:-.045em;text-wrap:balance}
 @media(max-width:760px){.recognition-photo{height:auto;aspect-ratio:1/1}}
 @media(max-width:760px){
+  .hero h1{font-size:clamp(2.45rem,11.5vw,3.15rem);line-height:.96;margin-bottom:5px}
+  .hero-subheadline{font-size:clamp(1.95rem,9.5vw,2.65rem);line-height:1.04;margin-bottom:22px}
   .hero-lead{font-size:1.08rem;line-height:1.72;margin-bottom:30px}
   .hero-facts{font-size:.8rem;line-height:1.5}
   .hero-facts span{padding:13px 0}
 }
 @media(max-width:390px){
+  .hero h1{font-size:2.35rem}
+  .hero-subheadline{font-size:1.9rem}
   .hero-lead{font-size:1.02rem}
   .hero-facts{font-size:.76rem}
 }
