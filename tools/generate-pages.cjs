@@ -2,7 +2,24 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const checkoutUrl = '#oferta';
+const checkoutUrl = 'https://pay.kiwify.com.br/PAIK3uG';
+const groupUrl = 'https://chat.whatsapp.com/J4MhssWstxg3iABsNHJeVK?s=sh&p=a&mlu=4';
+const pixelId = '4641532832754429';
+
+const metaPixel = `<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','${pixelId}');
+fbq('track','PageView');
+</script>`;
+
+const metaPixelFallback = `<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1" alt=""></noscript>`;
 
 const angles = {
   a1: {
@@ -49,8 +66,10 @@ function renderPage(route, angle) {
   <meta property="og:image" content="/assets/og-lisandra-salete.png">
   <link rel="preload" as="image" href="../assets/lisandra-salete-hero.jpg">
   <link rel="stylesheet" href="/${route}/styles.css">
+  ${metaPixel}
 </head>
 <body data-angle="${route}">
+  ${metaPixelFallback}
   <header class="topbar">
     <a class="brand" href="#topo" aria-label="Ir ao início">
       <span class="brand-mark">LS</span>
@@ -226,6 +245,73 @@ function renderPage(route, angle) {
 </html>`;
 }
 
+function renderThankYouPage() {
+  return `<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#160b12">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Inscrição confirmada — Diagnóstico da Mulher que Dá Conta de Tudo</title>
+  <meta name="description" content="Sua inscrição no workshop foi confirmada. Entre agora no grupo exclusivo do WhatsApp.">
+  <link rel="stylesheet" href="/obrigada/styles.css">
+  ${metaPixel}
+  <script>
+  (function(){
+    var key='lisandra_purchase_event_id';
+    var eventId;
+    try{eventId=sessionStorage.getItem(key)}catch(e){}
+    if(!eventId){
+      eventId='purchase-'+(window.crypto&&crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(16).slice(2));
+      try{sessionStorage.setItem(key,eventId)}catch(e){}
+    }
+    window.metaPurchaseEventId=eventId;
+    fbq('track','Purchase',{currency:'BRL',value:29.90},{eventID:eventId});
+  })();
+  </script>
+</head>
+<body>
+  ${metaPixelFallback}
+  <main class="thank-you">
+    <div class="grid" aria-hidden="true"></div>
+    <section class="card" aria-labelledby="thank-you-title">
+      <div class="brand-mark" aria-hidden="true">LS</div>
+      <p class="eyebrow">INSCRIÇÃO CONFIRMADA</p>
+      <h1 id="thank-you-title">Parabéns!<br><em>Sua vaga está garantida.</em></h1>
+      <p class="lead">Seu pagamento foi concluído. Agora falta apenas entrar no grupo exclusivo do WhatsApp para receber os avisos e orientações do workshop.</p>
+      <a class="group-button" href="${groupUrl}"><span>ENTRAR NO GRUPO DO WHATSAPP</span><b aria-hidden="true">→</b></a>
+      <p class="note">Use o mesmo número de WhatsApp informado na inscrição.</p>
+    </section>
+  </main>
+  <script src="/obrigada/script.js" defer></script>
+</body>
+</html>`;
+}
+
+const thankYouCss = `
+:root{--dark:#0d070b;--panel:#1a1014;--ink:#fff9f6;--gold:#d9ae5a;--rose:#a63a62;--rose2:#87244b;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html{background:var(--dark)}body{margin:0;color:var(--ink);background:var(--dark);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}.thank-you{position:relative;min-height:100svh;padding:40px 20px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(166,58,98,.24),transparent 42%),linear-gradient(135deg,#1a1014,#0d070b)}.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(217,174,90,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(217,174,90,.055) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(circle,#000,transparent 75%)}.card{position:relative;width:min(760px,100%);padding:64px 58px;text-align:center;background:rgba(18,8,14,.84);border:1px solid var(--line);box-shadow:0 30px 90px rgba(0,0,0,.42);backdrop-filter:blur(12px)}.brand-mark{width:52px;height:52px;margin:0 auto 30px;display:grid;place-items:center;color:var(--gold);border:1px solid rgba(217,174,90,.5);border-radius:50%;font-family:Georgia,serif;font-size:.78rem;font-weight:700}.eyebrow{margin:0 0 20px;color:#cbbab3;font-size:.72rem;font-weight:900;letter-spacing:.16em}.card h1{margin:0;color:white;font-size:clamp(3.2rem,7vw,5.7rem);font-weight:800;line-height:.94;letter-spacing:-.065em;text-wrap:balance}.card h1 em{color:var(--gold);font-family:Georgia,serif;font-weight:400}.lead{max-width:610px;margin:28px auto 32px;color:#d6c6c0;font-size:1.08rem;line-height:1.72}.group-button{width:min(470px,100%);min-height:66px;margin:auto;padding:11px 13px 11px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:white;text-decoration:none;background:linear-gradient(135deg,var(--rose2),var(--rose));border:1px solid rgba(255,255,255,.16);border-radius:999px;box-shadow:0 18px 44px -18px rgba(166,58,98,.8);font-size:.78rem;font-weight:950;letter-spacing:.05em}.group-button b{width:42px;height:42px;display:grid;place-items:center;flex:0 0 auto;color:var(--dark);background:var(--gold);border-radius:50%;font-size:1rem}.group-button:hover{transform:translateY(-2px)}.group-button:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.note{margin:20px 0 0;color:#978985;font-size:.72rem;line-height:1.5}
+@media(max-width:600px){.thank-you{padding:18px}.card{padding:46px 22px}.card h1{font-size:clamp(2.8rem,13vw,4rem)}.lead{font-size:1rem}.group-button{font-size:.7rem;padding-left:18px}.eyebrow{font-size:.66rem}.note{font-size:.7rem}}
+`;
+
+const thankYouJs = `
+(function(){
+  function cookie(name){
+    var match=document.cookie.match(new RegExp('(?:^|; )'+name.replace(/[.$?*|{}()\\[\\]\\\\/+^]/g,'\\\\$&')+'=([^;]*)'));
+    return match?decodeURIComponent(match[1]):undefined;
+  }
+  var eventId=window.metaPurchaseEventId;
+  if(!eventId)return;
+  fetch('/api/meta-purchase',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({event_id:eventId,event_source_url:location.href,fbp:cookie('_fbp'),fbc:cookie('_fbc')}),
+    keepalive:true
+  }).catch(function(){});
+})();
+`;
+
 const css = `
 :root{--ink:#f6eee8;--muted:#c9b8b2;--soft:#a1988c;--dark:#160b12;--dark2:#1a1014;--wine:#24111b;--rose:#a63a62;--rose2:#7b2549;--gold:#d9ae5a;--gold2:#8a5e2c;--line:rgba(244,236,230,.14);--max:1180px}
 *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--dark)}body{margin:0;background:var(--dark);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}main{overflow:clip}a{color:inherit;text-decoration:none}img{display:block;width:100%;height:100%;object-fit:cover}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:Manrope,Inter,ui-sans-serif,system-ui,sans-serif}.section{padding:112px max(24px,calc((100vw - var(--max))/2))}.section-label{display:flex;align-items:center;gap:12px;margin-bottom:30px;color:var(--gold2);font-size:.63rem;font-weight:900;letter-spacing:.17em}.section-label span{width:35px;height:35px;display:grid;place-items:center;border:1px solid rgba(138,94,44,.38);border-radius:50%;color:var(--rose2)}.section-label.light{color:#a99a94}.section-label.light span{color:var(--gold);border-color:rgba(217,174,90,.32)}h2{margin-bottom:0;font-size:clamp(2.8rem,5.2vw,5.7rem);font-weight:760;line-height:.98;letter-spacing:-.062em;text-wrap:balance}h2 em{color:var(--gold);font-family:Georgia,serif;font-weight:400}.button{width:fit-content;min-height:62px;padding:10px 13px 10px 25px;display:inline-flex;align-items:center;justify-content:space-between;gap:28px;background:linear-gradient(135deg,var(--rose2),var(--rose) 62%,var(--gold2) 150%);border:1px solid rgba(255,255,255,.16);border-radius:999px;box-shadow:0 18px 44px -18px rgba(166,58,98,.8);font-size:.72rem;font-weight:950;letter-spacing:.05em;transition:.2s}.button b{width:38px;height:38px;display:grid;place-items:center;color:var(--dark);background:var(--gold);border-radius:50%;font-size:1rem}.button:hover{transform:translateY(-3px);box-shadow:0 24px 55px -18px rgba(166,58,98,.95)}.button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px}.button-full{width:100%}.center-cta{margin-top:52px;display:flex;justify-content:center}
@@ -301,4 +387,10 @@ for (const [route, angle] of Object.entries(angles)) {
   fs.writeFileSync(path.join(output, 'script.js'), js);
 }
 
-console.log('Três ângulos atualizados com a nova estrutura da cliente.');
+const thankYouOutput = path.join(root, 'obrigada');
+fs.mkdirSync(thankYouOutput, { recursive: true });
+fs.writeFileSync(path.join(thankYouOutput, 'index.html'), renderThankYouPage());
+fs.writeFileSync(path.join(thankYouOutput, 'styles.css'), thankYouCss);
+fs.writeFileSync(path.join(thankYouOutput, 'script.js'), thankYouJs);
+
+console.log('Três ângulos e página de confirmação atualizados.');

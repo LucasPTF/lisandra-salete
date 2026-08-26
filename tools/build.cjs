@@ -9,7 +9,7 @@ execFileSync(process.execPath, [path.join(__dirname, 'validate.cjs')], { stdio: 
 const dist = path.join(root, 'dist');
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
-for (const name of ['index.html', 'a1', 'a2', 'a3', 'assets']) {
+for (const name of ['index.html', 'a1', 'a2', 'a3', 'obrigada', 'assets']) {
   fs.cpSync(path.join(root, name), path.join(dist, name), { recursive: true });
 }
 console.log('Build pronto em dist/.');

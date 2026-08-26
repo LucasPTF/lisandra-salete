@@ -49,6 +49,36 @@ for (const route of routes) {
   if (!html.includes('<main') || !html.includes('</main>')) failures.push(`${route}: estrutura principal inválida`);
   if (!html.includes(`href="/${route}/styles.css"`)) failures.push(`${route}: caminho absoluto do CSS ausente`);
   if (!html.includes(`src="/${route}/script.js"`)) failures.push(`${route}: caminho absoluto do JavaScript ausente`);
+  if (!html.includes('https://pay.kiwify.com.br/PAIK3uG')) failures.push(`${route}: link do produto ausente`);
+  if (!html.includes("fbq('init','4641532832754429')") || !html.includes("fbq('track','PageView')")) {
+    failures.push(`${route}: Meta Pixel incompleto`);
+  }
+}
+
+const thankYouFiles = ['index.html', 'styles.css', 'script.js'].map((name) => path.join(root, 'obrigada', name));
+for (const file of thankYouFiles) {
+  if (!fs.existsSync(file) || fs.statSync(file).size === 0) failures.push(`obrigada: arquivo ausente ou vazio: ${path.basename(file)}`);
+}
+
+if (fs.existsSync(thankYouFiles[0])) {
+  const thankYouHtml = fs.readFileSync(thankYouFiles[0], 'utf8');
+  for (const text of [
+    "fbq('track','Purchase',{currency:'BRL',value:29.90}",
+    'https://chat.whatsapp.com/J4MhssWstxg3iABsNHJeVK?s=sh&p=a&mlu=4',
+    'ENTRAR NO GRUPO DO WHATSAPP',
+    'src="/obrigada/script.js"',
+  ]) {
+    if (!thankYouHtml.includes(text)) failures.push(`obrigada: conteúdo obrigatório ausente: ${text}`);
+  }
+}
+
+const conversionApiPath = path.join(root, 'api', 'meta-purchase.js');
+if (!fs.existsSync(conversionApiPath)) {
+  failures.push('API de conversão ausente');
+} else {
+  const conversionApi = fs.readFileSync(conversionApiPath, 'utf8');
+  if (!conversionApi.includes('process.env.META_CONVERSIONS_TOKEN')) failures.push('API de conversão não usa variável protegida');
+  if (conversionApi.includes('EAAW1R1')) failures.push('token de conversão exposto no código');
 }
 
 for (const asset of ['lisandra-salete-hero.jpg', 'lisandra-salete-mentoras.jpg', 'lisandra-salete-reconhece.jpg']) {
@@ -61,4 +91,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Validação concluída: três páginas e assets íntegros.');
+console.log('Validação concluída: páginas, Pixel e conversões íntegros.');
