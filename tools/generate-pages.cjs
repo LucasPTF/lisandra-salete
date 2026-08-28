@@ -58,11 +58,11 @@ function renderPage(route, angle) {
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#160b12">
   <title>${angle.title} — Diagnóstico da Mulher que Dá Conta de Tudo</title>
-  <meta name="description" content="Workshop online e ao vivo em 10 de setembro, quinta-feira, às 20h, com diagnóstico guiado, práticas e vivências sistêmicas.">
+  <meta name="description" content="Workshop online e ao vivo em 12 de setembro, sábado, às 9h, com diagnóstico guiado, práticas e vivências sistêmicas.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Diagnóstico da Mulher que Dá Conta de Tudo">
-  <meta property="og:description" content="10 de setembro, quinta-feira, às 20h. Online, ao vivo e com 4 horas de práticas e vivências guiadas.">
+  <meta property="og:description" content="12 de setembro, sábado, às 9h. Online, ao vivo e com 4 horas de práticas e vivências guiadas.">
   <meta property="og:image" content="/assets/og-lisandra-salete.png">
   <link rel="preload" as="image" href="../assets/lisandra-salete-hero.jpg">
   <link rel="stylesheet" href="/${route}/styles.css">
@@ -87,7 +87,7 @@ function renderPage(route, angle) {
         <h2 class="hero-subheadline">${angle.subheadline}</h2>
         <p class="hero-lead">Um workshop ao vivo para mulheres que estão cansadas de sustentar tudo sozinhas e querem compreender o que pode estar por trás dessa necessidade de dar conta de tudo.</p>
         <div class="hero-facts" aria-label="Informações do workshop">
-          <span>10/09 • quinta-feira • 20h</span><i></i><span>4 horas ao vivo</span><i></i><span>Diagnóstico guiado</span><i></i><span>Vivências sistêmicas</span>
+          <span>12/09 • sábado • 9h</span><i></i><span>4 horas ao vivo</span><i></i><span>Diagnóstico guiado</span><i></i><span>Vivências sistêmicas</span>
         </div>
         <div class="hero-action">
           ${cta()}
@@ -157,7 +157,7 @@ function renderPage(route, angle) {
         <h3>DIAGNÓSTICO DA MULHER QUE DÁ CONTA DE TUDO</h3>
         <p class="you-get">VOCÊ TERÁ:</p>
         <ul class="offer-list">
-          <li>10/09 — quinta-feira, às 20h</li>
+          <li>12/09 — sábado, às 9h</li>
           <li>Workshop ao vivo — 4 horas</li>
           <li>Diagnóstico guiado</li>
           <li>Práticas e vivências sistêmicas</li>
@@ -170,7 +170,7 @@ function renderPage(route, angle) {
         <p class="price-label">1º LOTE <span>VOCÊ ESTÁ AQUI</span></p>
         <div class="price"><small>R$</small><strong>29</strong><sup>,90</sup></div>
         <div class="price-jump"><span>AGORA <b>R$ 29,90</b></span><i>→</i><span>PRÓXIMO LOTE <b>R$ 97</b></span></div>
-        <p class="event-line">10/09 <i></i> Quinta-feira <i></i> 20h <i></i> Online <i></i> 4 horas <i></i> Replay por 3 dias</p>
+        <p class="event-line">12/09 <i></i> Sábado <i></i> 9h <i></i> Online <i></i> 4 horas <i></i> Replay por 3 dias</p>
         ${cta('QUERO GARANTIR MINHA VAGA', 'button-full')}
         <p class="third-lot">3º lote: R$ 197</p>
         <small class="purchase-note">A compra segue as condições da plataforma de pagamento utilizada.</small>
@@ -227,7 +227,7 @@ function renderPage(route, angle) {
         <h2>Você não precisa continuar sendo a última da sua própria lista.</h2>
         <p>Talvez você não precise fazer mais.<br><strong>Talvez precise compreender por que sente que precisa dar conta de tudo.</strong></p>
         <h3>DIAGNÓSTICO DA MULHER QUE DÁ CONTA DE TUDO</h3>
-        <div class="final-meta"><span>10/09</span><i></i><span>Quinta-feira</span><i></i><span>20h</span><i></i><span>Online</span><i></i><span>4 horas</span></div>
+        <div class="final-meta"><span>12/09</span><i></i><span>Sábado</span><i></i><span>9h</span><i></i><span>Online</span><i></i><span>4 horas</span></div>
         <div class="final-offer"><span>1º LOTE</span><strong>R$ 29,90</strong></div>
         ${cta()}
       </div>
@@ -280,7 +280,7 @@ function renderThankYouPage() {
       <div class="brand-mark" aria-hidden="true">LS</div>
       <p class="eyebrow">INSCRIÇÃO CONFIRMADA</p>
       <h1 id="thank-you-title">Parabéns!<br><em>Sua vaga está garantida.</em></h1>
-      <p class="lead">Seu pagamento foi concluído. O workshop será no dia <strong>10/09, quinta-feira, às 20h</strong>. Entre no grupo exclusivo do WhatsApp para receber os avisos e orientações.</p>
+      <p class="lead">Seu pagamento foi concluído. O workshop será no dia <strong>12/09, sábado, às 9h</strong>. Entre no grupo exclusivo do WhatsApp para receber os avisos e orientações.</p>
       <a class="group-button" href="${groupUrl}"><span>ENTRAR NO GRUPO DO WHATSAPP</span><b aria-hidden="true">→</b></a>
       <p class="note">Use o mesmo número de WhatsApp informado na inscrição.</p>
     </section>
